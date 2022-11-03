@@ -1,0 +1,59 @@
+---
+title: "Tugas Modul 7"
+output:
+  word_document: default
+  pdf_document: default
+date: "2022-11-03"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Import Database
+
+```{r No1}
+library(dslabs)
+library(tibble)
+library(tidyverse)
+data(murders)
+```
+
+## Soal Nomer 1
+Gunakan as_tibble untuk mengkonversi tabel dataset “US murders” dalam bentuk tibble dan simpan dalam objek baru bernama ‘murders_tibble’.
+
+```{r No2}
+murders_tibble <- as_tibble(murders)
+murders_tibble
+
+```
+
+## Soal Nomer 2
+Gunakan fungsi group_by untuk mengkonversi dataset “US murders” menjadi sebuah tibble yang dikelompokkan berdasarkan ‘region’.
+```{r No3}
+murders_region <- as_tibble(murders %>% group_by(region))
+murders_region
+
+```
+
+## Soal Nomer 3
+Tulis script tidyverse yang menghasilkan output yang sama dengan perintah berikut:
+```{r No4}
+murders%>%.$population%>%log()%>%mean()%>%exp()
+```
+
+## Soal Nomer 4
+Gunakan map_df untuk membuat data frame yang terdiri dari tiga kolom: ‘n’, ‘s_n’, dan ‘s_n_2’.Kolom pertama harus berisi angka 1 hingga 100. Kolom kedua dan ketiga masing-masing harus berisi penjumlahan 1 hingga n, dimana n menyatakan jumlah baris.
+
+```{r No5}
+compute_s_n <- function(n){
+  x<-1:n
+  tibble(n=n,
+  s_n=sum(x),
+  s_n_2=sum(x)^2)
+}
+n <- 1:100
+hasil <- map_df(n, compute_s_n)
+
+hasil
+```
